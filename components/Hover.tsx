@@ -15,7 +15,6 @@ type HoverProps = {
   children: ReactNode;
   hoverType: HoverTypes;
   src: string;
-  width: number;
   underlineColour: UnderlineColour;
   alt?: string;
 };
@@ -23,7 +22,6 @@ type HoverProps = {
 const Hover = ({
   children,
   src,
-  width = 100,
   hoverType = "page",
   underlineColour = "inherit",
   alt = null,
