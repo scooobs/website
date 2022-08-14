@@ -17,7 +17,7 @@ const Layout = ({ children, title = "Conal O'Leary" }: Props) => (
     </Head>
     <div className="h-20" />
     {children}
-    <footer className="flex fixed bottom-0 inset-x-0 mb-1 items-center justify-center">
+    <footer className="flex fixed bottom-0 inset-x-0 py-1 items-center justify-center">
       <Spotify />
     </footer>
   </div>

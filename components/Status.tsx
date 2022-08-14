@@ -2,7 +2,9 @@ import { useLanyard } from "use-lanyard";
 import { DISCORD_ID } from "../data/const";
 
 export const Status = () => {
-  const { data: lanyard } = useLanyard(DISCORD_ID);
+  const { data: lanyard } = useLanyard(DISCORD_ID, {
+    refreshInterval: 3 * 60 * 1000,
+  });
 
   if (!lanyard) {
     return null;
