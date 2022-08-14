@@ -1,5 +1,6 @@
 import { work } from "../../data/work";
 import Hover from "../Hover";
+import { Status } from "../Status";
 
 type Props = {
   className?: string;
@@ -11,16 +12,19 @@ export const Bio = ({ className = "" }: Props) => {
       <Hover hoverType="img" src="/images/me.png" underlineColour="light-blue">
         <p className="font-semibold">{"Conal O'Leary"}</p>
       </Hover>
-      <p className="text-sm">Brisbane, Australia</p>
+      <div className="flex flex-row gap-2 items-center">
+        <Status />
+        <p className="text-sm">Brisbane, Australia</p>
+      </div>
       <p className="opacity-70 italic text-sm">
-        Forward Deployed Software Engineer,{" "}
+        Mathematics Tutor,{" "}
         <a
           target="_blank"
-          href="https://www.palantir.com/"
+          href="https://smp.uq.edu.au/profile/9972/conal-oleary"
           className="not-italic underline decoration-indigo-500 hover:font-semibold"
           rel="noreferrer"
         >
-          Palantir
+          The University of Queensland
         </a>
       </p>
     </div>
@@ -37,10 +41,7 @@ export const Work = ({ className = "" }: Props) => {
           let bio = entry[1][0];
           let date = entry[1][1];
           return (
-            <div
-              className="flex-grow basis-1 text-sm text-justify"
-              key={workplace}
-            >
+            <div className="flex-grow basis-1 text-sm" key={workplace}>
               <p className="font-semibold">
                 {workplace}
                 <span className="pl-2 text-xs font-normal italic">{date}</span>

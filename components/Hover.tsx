@@ -3,6 +3,7 @@ import Image from "next/image";
 
 type HoverTypes = "img" | "page";
 type UnderlineColour = "light-blue" | "pink" | "purple" | "inherit";
+type DirectionType = "up" | "down";
 
 const ColourMap = new Map<string, string>([
   ["light-blue", "decoration-sky-500"],
@@ -16,6 +17,7 @@ type HoverProps = {
   hoverType: HoverTypes;
   src: string;
   underlineColour: UnderlineColour;
+  direction?: DirectionType;
   alt?: string;
 };
 
@@ -24,9 +26,12 @@ const Hover = ({
   src,
   hoverType = "page",
   underlineColour = "inherit",
+  direction = "down",
   alt = null,
 }: HoverProps) => {
   const [hover, setHover] = useState<boolean>(false);
+
+  const position = direction === "down" ? "-bottom-[125px]" : "bottom-[25px]";
 
   const handleMouseOver = () => {
     setHover(true);
@@ -36,7 +41,7 @@ const Hover = ({
       setHover(false);
     }, 50);
   };
-  // Padding on the hover is annoying but it will do for now.
+  // TODO: Fix that Images in this way have a fixed size of their relative container
   return (
     <div className="inline-flex relative transition-all">
       <div
@@ -51,7 +56,7 @@ const Hover = ({
       <div
         className={
           hover
-            ? `absolute -bottom-[125px] inset-x-0 z-50 transition ease-in duration-200`
+            ? `inline-flex absolute ${position} inset-x-0 z-50 transition ease-in duration-200`
             : "h-0 w-0  opacity-0"
         }
       >
@@ -61,8 +66,8 @@ const Hover = ({
               className="rounded-md m-0 p-0"
               src={src}
               alt={alt}
-              width={100}
-              height={100}
+              width={250}
+              height={250}
             />
           ) : null}
         </div>
