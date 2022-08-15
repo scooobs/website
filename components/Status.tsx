@@ -1,3 +1,4 @@
+import React from "react";
 import { useLanyard } from "use-lanyard";
 import { DISCORD_ID } from "../data/const";
 
@@ -7,7 +8,7 @@ export const Status = () => {
   });
 
   if (!lanyard) {
-    return null;
+    return <div className={"h-1 w-1 rounded-full bg-gray-600"}></div>;
   }
 
   const online = lanyard.discord_status === "online";
@@ -16,12 +17,14 @@ export const Status = () => {
     return (
       <div className="flex opacity-100 bg-opacity-100">
         <div
-          className={`absolute inline-flex h-1 w-1 rounded-full animate-ping bg-green-500`}
+          className={
+            "absolute inline-flex h-1 w-1 rounded-full animate-ping bg-green-500"
+          }
         />
         <div className="relative inline-flex rounded-full h-1 w-1 bg-green-600" />
       </div>
     );
   } else {
-    return <div className={`h-1 w-1 rounded-full bg-red-600`}></div>;
+    return <div className={"h-1 w-1 rounded-full bg-red-600"}></div>;
   }
 };

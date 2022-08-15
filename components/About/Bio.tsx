@@ -1,19 +1,24 @@
+import React from "react";
 import { work } from "../../data/work";
-import Hover from "../Hover";
 import { Status } from "../Status";
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
 import { Social } from "../Social";
+import { ImageTooltip } from "../ImageTooltip";
 
 type Props = {
   className?: string;
 };
 
+// Scuffed random div underneath the Image ToolTip otherwise Portal renders the Image Tooltip in the next div...
 export const Bio = ({ className = "" }: Props) => {
   return (
     <div className={className}>
-      <Hover hoverType="img" src="/images/me.png" underlineColour="light-blue">
-        <p className="font-semibold whitespace-nowrap">{"Conal O'Leary"}</p>
-      </Hover>
+      <ImageTooltip src="/images/me.png" size={150}>
+        <p className="hover:cursor-pointer underline decoration-sky-500 inline-flex font-semibold whitespace-nowrap">
+          {"Conal O'Leary"}
+        </p>
+      </ImageTooltip>
+
       <div className="flex flex-row gap-2 items-center">
         <Status />
         <p className="whitespace-nowrap text-sm">Brisbane, Australia</p>
@@ -60,9 +65,9 @@ export const Work = ({ className = "" }: Props) => {
       <p className="font-semibold mb-4">Employment</p>
       <div className="flex flex-col lg:flex-row gap-8">
         {[...work].map((entry) => {
-          let workplace = entry[0];
-          let bio = entry[1][0];
-          let date = entry[1][1];
+          const workplace = entry[0];
+          const bio = entry[1][0];
+          const date = entry[1][1];
           return (
             <div className="flex-grow basis-1 text-sm" key={workplace}>
               <div className="flex flex-col pb-1 lg:items-center lg:flex-row lg:pb-0">

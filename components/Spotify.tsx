@@ -1,7 +1,7 @@
-import Image from "next/image";
+import React from "react";
 import { useLanyard } from "use-lanyard";
 import { DISCORD_ID } from "../data/const";
-import Hover from "./Hover";
+import { ImageTooltip } from "./ImageTooltip";
 
 export const Spotify = () => {
   const { data: lanyard } = useLanyard(DISCORD_ID, {
@@ -33,14 +33,11 @@ export const Spotify = () => {
         >{`${song}`}</a>
 
         <span className="opacity-70">{" by "}</span>
-        <Hover
-          hoverType="img"
-          src={album_art_url}
-          underlineColour="light-blue"
-          direction="up"
-        >
-          <span className="opacity-70 not-italic">{artist}</span>
-        </Hover>
+        <ImageTooltip src={album_art_url} direction="top" size={150}>
+          <span className="hover:cursor-pointer underline decoration-pink-500 opacity-70 not-italic">
+            {artist}
+          </span>
+        </ImageTooltip>
       </p>
     );
   }
