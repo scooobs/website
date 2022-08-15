@@ -16,8 +16,8 @@ const Layout = ({ children, title = "Conal O'Leary" }: Props) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <div className="h-20" />
-    {children}
-    <footer className="flex fixed bottom-0 inset-x-0 py-1 items-center justify-center">
+    <div className="mb-10">{children}</div>
+    <footer className="flex fixed bottom-0 inset-x-0 pb-1 items-center justify-center">
       <Spotify />
     </footer>
   </div>
