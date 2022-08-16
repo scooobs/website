@@ -13,22 +13,23 @@ export const calcTooltipPosition = (
     height: childHeight,
     width: childWidth,
   } = child.getBoundingClientRect();
+
   const { width: tooltipWidth, height: tooltipHeight } =
     tooltip.getBoundingClientRect();
 
   let baseLeft = childLeft;
   let baseTop = childTop;
 
-
   switch (direction) {
     case "top": {
       baseLeft = baseLeft + childWidth / 2 - tooltipWidth / 2;
-      baseTop = baseTop - tooltipHeight - GAP;
+      baseTop = baseTop - tooltipHeight - GAP + window.scrollY;
       break;
     }
     case "bottom": {
       baseLeft = baseLeft + childWidth / 2 - tooltipWidth / 2;
-      baseTop = baseTop + childHeight + GAP;
+      baseTop = baseTop + childHeight + GAP + window.scrollY;
+
       break;
     }
     default: {

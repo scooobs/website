@@ -28,13 +28,13 @@ export const Spotify = () => {
         <a
           target={"_blank"}
           href={`https://open.spotify.com/track/${track_id}`}
-          className="opacity-70 underline decoration-pink-700 hover:font-medium"
+          className="opacity-70 underline decoration-pink-500 hover:font-medium"
           rel="noreferrer"
         >{`${song}`}</a>
 
         <span className="opacity-70">{" by "}</span>
         <ImageTooltip src={album_art_url} direction="top" size={150}>
-          <span className="hover:cursor-pointer underline decoration-pink-500 opacity-70 not-italic">
+          <span className="hover:cursor-pointer underline decoration-indigo-500 opacity-70 not-italic">
             {artist}
           </span>
         </ImageTooltip>

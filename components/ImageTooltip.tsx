@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Image from "next/image";
 import { createPortal } from "react-dom";
 import { calcTooltipPosition } from "../utils/calc";
 
@@ -92,9 +91,9 @@ export const ImageTooltip = ({
       {visible &&
         typeof window !== "undefined" &&
         createPortal(
-          <div className="absolute" ref={imageTooltipRef}>
-            <Image
-              className="inline-flex rounded-md m-0"
+          <div className="absolute drop-shadow-xl" ref={imageTooltipRef}>
+            <img
+              className="inline-flex rounded-md m-0 "
               src={src}
               width={size}
               height={size}

@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Layout = ({ children, title = "Conal O'Leary" }: Props) => (
-  <div>
+  <div className="flex flex-col">
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
@@ -16,7 +16,7 @@ const Layout = ({ children, title = "Conal O'Leary" }: Props) => (
     </Head>
     <div className="h-20" />
     <div className="mb-10">{children}</div>
-    <footer className="flex fixed bottom-0 inset-x-0 pb-1 items-center justify-center">
+    <footer className="flex pb-1 items-center justify-center">
       <Spotify />
     </footer>
   </div>
