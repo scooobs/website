@@ -15,7 +15,7 @@ export const Status = () => {
 
   if (online) {
     return (
-      <div className="flex opacity-100 bg-opacity-100">
+      <div title="Online" className="flex opacity-100 bg-opacity-100">
         <div
           className={
             "absolute inline-flex h-1 w-1 rounded-full animate-ping bg-green-500"
@@ -25,6 +25,8 @@ export const Status = () => {
       </div>
     );
   } else {
-    return <div className={"h-1 w-1 rounded-full bg-red-600"}></div>;
+    return (
+      <div title="Offline" className={"h-1 w-1 rounded-full bg-red-600"}></div>
+    );
   }
 };

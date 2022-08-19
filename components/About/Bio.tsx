@@ -9,11 +9,24 @@ type Props = {
   className?: string;
 };
 
-// Scuffed random div underneath the Image ToolTip otherwise Portal renders the Image Tooltip in the next div...
 export const Bio = ({ className = "" }: Props) => {
+  let profPicture = "/images/me.png";
+  if (Math.random() > 0.75) {
+    profPicture = "/images/scooby.png";
+  }
+
   return (
     <div className={className}>
-      <ImageTooltip src="/images/me.png" size={150}>
+      <ImageTooltip
+        src={profPicture}
+        size={150}
+        animationProps={{
+          transition: { ease: "backIn", duration: 0.3 },
+          initial: { height: 0, opacity: 1 },
+          animate: { height: 150, opacity: 1 },
+          exit: { height: 0, opacity: 0 },
+        }}
+      >
         <p className="hover:cursor-pointer underline decoration-sky-500 inline-flex font-semibold whitespace-nowrap">
           {"Conal O'Leary"}
         </p>
