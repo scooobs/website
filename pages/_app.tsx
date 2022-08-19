@@ -1,11 +1,11 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <StrictMode>
       <Head>
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link
@@ -27,6 +27,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </div>
+    </StrictMode>
   );
 }
