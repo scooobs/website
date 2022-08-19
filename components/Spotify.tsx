@@ -33,7 +33,20 @@ export const Spotify = () => {
         >{`${song}`}</a>
 
         <span className="opacity-70">{" by "}</span>
-        <ImageTooltip src={album_art_url} direction="top" size={150}>
+        <ImageTooltip
+          src={album_art_url}
+          direction="top"
+          size={150}
+          animationProps={{
+            transition: {
+              ease: "easeOut",
+              duration: 0.3,
+            },
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+          }}
+        >
           <span className="hover:cursor-pointer underline decoration-indigo-500 opacity-70 not-italic">
             {artist}
           </span>
