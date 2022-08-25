@@ -22,4 +22,4 @@ const Layout = ({ children, title = "Conal O'Leary" }: Props) => (
   </div>
 );
 
-export default Layout;
+export { Layout };
