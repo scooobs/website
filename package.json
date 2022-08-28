@@ -2,12 +2,14 @@
   "private": true,
   "scripts": {
     "dev": "next",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "build": "next build",
     "lint": "next lint",
     "start": "next start",
     "type-check": "tsc"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.7",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.2.1",
     "framer-motion": "7.2.0",
@@ -15,8 +17,11 @@
     "next-auth": "^4.10.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.34.2",
     "react-icons": "4.4.0",
+    "react-toastify": "^9.0.8",
     "use-lanyard": "1.2.0",
+    "zod": "^3.18.0",
     "zustand": "^4.0.0"
   },
   "devDependencies": {
