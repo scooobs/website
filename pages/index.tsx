@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
 import { Bio, Contact, Education, Work } from "../components/About/Bio";
 import prisma from "../prisma/db";
+import { useEditingStore } from "../stores/useEditingStore";
 
 import { useSession } from "next-auth/react";
 import { InferGetServerSidePropsType } from "next";
 import { Biography } from "@prisma/client";
-import { useEditingStore } from "../stores/useEditingStore";
 
 interface IndexPayload {
   biography?: Biography;
@@ -60,7 +60,7 @@ const IndexPage = ({
 
   return (
     <Layout>
-      <div className="w-1/2 m-auto">
+      <div className="w-2/3 sm:w-1/2 m-auto">
         <Bio payload={biography} className="mb-14" />
         <Contact className="mb-14" />
         <Work className="mb-14" />
