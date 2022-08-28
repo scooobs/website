@@ -11,12 +11,12 @@ export default NextAuth({
     GithubProvider({
       clientId:
         process.env.NODE_ENV === "production"
-          ? process.env.GITHUB_CLIENT_ID
-          : process.env.GITHUB_LOCAL_CLIENT_ID,
+          ? process.env.GITHUB_CLIENT_ID as string
+          : process.env.GITHUB_LOCAL_CLIENT_ID as string,
       clientSecret:
         process.env.NODE_ENV === "production"
-          ? process.env.GITHUB_CLIENT_SECRET
-          : process.env.GITHUB_LOCAL_CLIENT_SECRET,
+          ? process.env.GITHUB_CLIENT_SECRET as string
+          : process.env.GITHUB_LOCAL_CLIENT_SECRET as string,
     }),
   ],
   callbacks: {
@@ -27,7 +27,9 @@ export default NextAuth({
             id: user.id,
           },
         });
-        session.user = dbUser;
+        if (dbUser) {
+          session.user = dbUser;
+        }
       }
       return session;
     },
