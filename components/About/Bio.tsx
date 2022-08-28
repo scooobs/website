@@ -4,16 +4,160 @@ import { Status } from "../Status";
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
 import { Social } from "../Social";
 import { ImageTooltip } from "../ImageTooltip";
+import { useEditingStore } from "../../stores/useEditingStore";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Biography } from "@prisma/client";
+import Input from "../Input";
+import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
   className?: string;
 };
 
-export const Bio = ({ className = "" }: Props) => {
+type BioProps = Props & {
+  payload: Biography;
+};
+export interface IBio {
+  location: string;
+  job: string;
+  companyURL: string;
+}
+
+const BioSchema = z.object({
+  location: z.string().min(1),
+  job: z.string().min(1),
+  companyURL: z.string().url(),
+});
+
+const chooseProfilePicture = () => {
   let profPicture = "/images/me.png";
   if (Math.random() > 0.75) {
     profPicture = "/images/scooby.png";
   }
+  return profPicture;
+};
+
+const onSubmit = async (data: IBio) => {
+  const res = await fetch("/api/bio", {
+    body: JSON.stringify(data),
+    method: "POST",
+  });
+  if (res.ok) {
+    toast.success("Sucessfully saved Biography");
+  } else {
+    toast.error("Error saving Biography");
+  }
+};
+
+/**
+ * TODO: Make this look nicer, animations are okay but the UI is bad.
+ */
+export const EditableBio = ({ payload, className = "" }: BioProps) => {
+  const profPicture = chooseProfilePicture();
+  const { control, handleSubmit } = useForm<IBio>({
+    defaultValues: {
+      companyURL: payload.companyURL,
+      job: payload.job + ", " + payload.company,
+      location: payload.currentLocation,
+    },
+    resolver: zodResolver(BioSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={className}>
+        <ImageTooltip
+          src={profPicture}
+          size={150}
+          animationProps={{
+            transition: { ease: "backIn", duration: 0.3 },
+            initial: { height: 0, opacity: 1 },
+            animate: { height: 150, opacity: 1 },
+            exit: { height: 0, opacity: 0 },
+          }}
+        >
+          <p className="hover:cursor-pointer underline decoration-sky-500 inline-flex font-semibold whitespace-nowrap">
+            {"Conal O'Leary"}
+          </p>
+        </ImageTooltip>
+        <div className="flex flex-col">
+          <div className="flex flex-row gap-2 items-center">
+            <Status />
+            <Input
+              control={control}
+              name="location"
+              placeholder={payload.currentLocation}
+              className="text-sm border-0 outline-0 "
+            />
+          </div>
+          <Input
+            control={control}
+            name="job"
+            placeholder={payload.job + ", " + payload.company}
+            className="  text-sm border-0 outline-0 italic "
+          />
+          <Input
+            control={control}
+            name="companyURL"
+            placeholder={payload.companyURL}
+            className="  text-sm border-0 outline-0 underline"
+            animationProps={{
+              initial: {
+                opacity: 0,
+                y: -5,
+              },
+              animate: {
+                opacity: 1,
+                y: 0,
+              },
+              exit: {
+                opacity: 0,
+                y: -5,
+              },
+            }}
+          />
+          <motion.div
+            onClick={handleSubmit(onSubmit)}
+            className="mt-4 text-sm underline font-bold cursor-pointer w-min"
+            initial={{ y: -5, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -5, opacity: 0 }}
+          >
+            SAVE
+          </motion.div>
+        </div>
+      </div>
+    </form>
+  );
+};
+
+export const Bio = ({ payload, className = "" }: BioProps) => {
+  const { editing } = useEditingStore();
+  if (!payload) {
+    return <div>Could not find bio</div>;
+  }
+
+  return (
+    <AnimatePresence mode="wait">
+      {editing ? (
+        <EditableBio
+          key={"BIOMOTION"}
+          payload={payload}
+          className={className}
+        />
+      ) : (
+        <UneditableBio className={className} payload={payload} />
+      )}
+      ;
+    </AnimatePresence>
+  );
+};
+
+export const UneditableBio = ({ payload, className = "" }: BioProps) => {
+  const profPicture = chooseProfilePicture();
 
   return (
     <div className={className}>
@@ -34,17 +178,17 @@ export const Bio = ({ className = "" }: Props) => {
 
       <div className="flex flex-row gap-2 items-center">
         <Status />
-        <p className="whitespace-nowrap text-sm">Brisbane, Australia</p>
+        <p className="whitespace-nowrap text-sm">{payload.currentLocation}</p>
       </div>
       <p className="opacity-70 italic text-sm">
-        Mathematics Tutor,{" "}
+        {payload.job},{" "}
         <a
           target="_blank"
-          href="https://smp.uq.edu.au/profile/9972/conal-oleary"
+          href={payload.companyURL}
           className="not-italic underline decoration-indigo-500 hover:font-semibold"
           rel="noreferrer"
         >
-          The University of Queensland
+          {payload.company}
         </a>
       </p>
     </div>

@@ -8,7 +8,7 @@ export const Status = () => {
   });
 
   if (!lanyard) {
-    return <div className={"h-1 w-1 rounded-full bg-gray-600"}></div>;
+    return <div className={"h-1 w-1 rounded-full bg-gray-600"} />;
   }
 
   const online = lanyard.discord_status === "online";
@@ -26,7 +26,7 @@ export const Status = () => {
     );
   } else {
     return (
-      <div title="Offline" className={"h-1 w-1 rounded-full bg-red-600"}></div>
+      <div title="Offline" className={"h-1 w-1 rounded-full bg-red-600"} />
     );
   }
 };
