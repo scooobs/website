@@ -29,14 +29,14 @@ export const ImageTooltip = ({
   children,
   src,
   size,
-  animationProps = null,
+  animationProps,
   alt = "",
   direction = "bottom",
 }: ImageTooltipProps) => {
   const baseChildElement = Children.only(children);
-  const childRef = useRef<HTMLElement>();
-  const imageTooltipRef = useRef<HTMLDivElement>();
-  const bodyRef = useRef<HTMLElement>();
+  const childRef = useRef<HTMLElement | null>(null);
+  const imageTooltipRef = useRef<HTMLDivElement | null>(null);
+  const bodyRef = useRef<HTMLElement | null>(null);
 
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -98,6 +98,7 @@ export const ImageTooltip = ({
     <>
       {cloneElement(baseChildElement, { ref: childRef })}
       {mounted &&
+        bodyRef.current &&
         createPortal(
           <div
             className="absolute drop-shadow-xl bg-transparent "

@@ -6,7 +6,7 @@ type SocialProps = {
   link?: string;
 };
 
-export const Social = ({ icon, handle, link = null }: SocialProps) => {
+export const Social = ({ icon, handle, link }: SocialProps) => {
   return (
     <span className="flex flex-row gap-1 items-center">
       {icon}
