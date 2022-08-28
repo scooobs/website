@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { NextApiRequest, NextApiResponse } from "next";
 import { IBio } from "../../components/About/Bio";
+import prisma from "../../prisma/db";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {
