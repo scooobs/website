@@ -57,12 +57,13 @@ model VerificationToken {
 }
 
 model Biography {
+  id              Int
   job             String
   company         String
   companyURL      String
   currentLocation String
 
-  @@unique([job, company])
+  @@unique([id])
 }
 
 model Employment {
