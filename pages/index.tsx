@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "../components/Layout";
 import { Bio, Contact, Education, Work } from "../components/About/Bio";
+import { Notes } from "../components/About/Notes";
 
 const IndexPage = () => {
   return (
@@ -10,6 +11,7 @@ const IndexPage = () => {
         <Contact className="mb-14" />
         <Work className="mb-14" />
         <Education className="mb-14" />
+        <Notes className="mb-14" />
       </div>
     </Layout>
   );

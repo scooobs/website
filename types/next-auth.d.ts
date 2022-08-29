@@ -1,12 +1,14 @@
 import { Session } from "next-auth";
-import { User } from "prisma/prisma-client";
+import { Note, User } from "prisma/prisma-client";
 import { JWT } from "next-auth/jwt";
 
 /** Example on how to extend the built-in session types */
 declare module "next-auth" {
   interface Session {
     /** This is an example. You can find me in types/next-auth.d.ts */
-    user: User;
+    user: User & {
+      note: Note | null;
+    };
   }
 }
 
