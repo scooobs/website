@@ -145,7 +145,7 @@ export const SkeletonBio = ({ className = "" }: Props) => {
         </p>
       </ImageTooltip>
       <motion.div
-        initial={{ y: -5 }}
+        initial={{ y: -10 }}
         animate={{ y: 0 }}
         exit={{ y: -10, opacity: 0 }}
       >

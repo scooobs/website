@@ -1,38 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
 import { Bio, Contact, Education, Work } from "../components/About/Bio";
-import prisma from "../prisma/db";
+
 import { useEditingStore } from "../stores/useEditingStore";
 
-import { InferGetServerSidePropsType } from "next";
 import { Biography } from "@prisma/client";
 
-interface IndexPayload {
-  biography?: Biography;
-}
-
-/**
- * Get the initial data on page load to populate the layout.
- *
- * NOTE: Don't use GetServerSideProps type, if needed use the GetServerSidePropsContext
- */
-export async function getServerSideProps() {
-  const biography = await prisma.biography.findUnique({ where: { id: 1 } });
-  const payload: IndexPayload = {};
-  if (biography) {
-    payload.biography = biography;
-  }
-
-  return { props: { payload } };
-}
-
-const IndexPage = ({
-  payload,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const IndexPage = () => {
   const { editing } = useEditingStore();
-  const [biography, setBiography] = useState<Biography | undefined>(
-    payload.biography
-  );
+  const [biography, setBiography] = useState<Biography | undefined>(undefined);
 
   /**
    * When changing edit mode, reresh the data to make sure it is in sync.
