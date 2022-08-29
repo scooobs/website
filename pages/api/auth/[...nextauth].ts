@@ -26,6 +26,9 @@ export default NextAuth({
           where: {
             id: user.id,
           },
+          include: {
+            note: true,
+          }
         });
         if (dbUser) {
           session.user = dbUser;

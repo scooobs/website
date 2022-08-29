@@ -46,6 +46,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  note          Note?
 }
 
 model VerificationToken {
@@ -54,6 +55,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Note {
+  id      String  @id @default(cuid())
+  userId  String  @unique
+  user    User    @relation(fields: [userId], references: [id])
+  visible Boolean @default(true)
+
+  @@map("note")
 }
 
 model Biography {
