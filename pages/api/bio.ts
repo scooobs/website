@@ -7,8 +7,6 @@ import prisma from "../../prisma/db";
  * When Prisma Data Proxy releases more locations look into converting to
  * Experimental Edge
  */
-
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {
     try {
@@ -41,13 +39,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).send({ status: "OK" });
     return;
   } 
-
-  if (req.method == "GET") {
-    const bio = await prisma.biography.findUnique({
-      where: {
-        id: 1
-      }
-    });
-    res.status(200).send(bio);
-  }
 };

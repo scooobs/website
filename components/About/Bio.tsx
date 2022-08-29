@@ -12,16 +12,13 @@ import { Biography } from "@prisma/client";
 import Input from "../Input";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
+import useSWR from "swr";
 
 type Props = {
   className?: string;
 };
 
 type BioProps = Props & {
-  payload: Biography | undefined;
-};
-
-type BioStrongProps = Props & {
   payload: Biography;
 };
 export interface IBio {
@@ -59,7 +56,7 @@ const onSubmit = async (data: IBio) => {
 /**
  * TODO: Make this look nicer, animations are okay but the UI is bad.
  */
-export const EditableBio = ({ payload, className = "" }: BioStrongProps) => {
+export const EditableBio = ({ payload, className = "" }: BioProps) => {
   const profPicture = chooseProfilePicture();
   const { control, handleSubmit } = useForm<IBio>({
     defaultValues: {
@@ -159,7 +156,8 @@ export const SkeletonBio = ({ className = "" }: Props) => {
   );
 };
 
-export const Bio = ({ payload, className = "" }: BioProps) => {
+export const Bio = ({ className = "" }: Props) => {
+  const { data: payload } = useSWR<Biography>("/api/get-bio");
   const { editing } = useEditingStore();
 
   return (
@@ -184,7 +182,7 @@ export const Bio = ({ payload, className = "" }: BioProps) => {
   );
 };
 
-export const UneditableBio = ({ payload, className = "" }: BioStrongProps) => {
+export const UneditableBio = ({ payload, className = "" }: BioProps) => {
   const profPicture = chooseProfilePicture();
 
   return (

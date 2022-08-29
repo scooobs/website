@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useEditingStore } from "../../stores/useEditingStore";
+import { useSWRConfig } from "swr";
 
 interface EditingProviderProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ const notAuthorisedToast = () =>
 
 export const EditingProvider = ({ children }: EditingProviderProps) => {
   const { data } = useSession();
+  const { mutate } = useSWRConfig();
   const { editing, toggleEditing } = useEditingStore();
   const user = data?.user;
 
@@ -20,6 +22,10 @@ export const EditingProvider = ({ children }: EditingProviderProps) => {
    * Allow users to enter EDIT MODE by pressing CMD + K
    */
   useEffect(() => {
+    const mutateBio = async () => {
+      await mutate("/api/get-bio");
+    };
+
     const handleKeyDown = (event: globalThis.KeyboardEvent) => {
       if (
         (event.metaKey && event.key == "k") ||
@@ -31,6 +37,8 @@ export const EditingProvider = ({ children }: EditingProviderProps) => {
           return;
         }
         if (user.isAdmin) {
+          mutateBio().catch(console.error);
+
           if (!editing) {
             toast.success("Entered Edit Mode");
           } else {
@@ -50,7 +58,7 @@ export const EditingProvider = ({ children }: EditingProviderProps) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [editing, toggleEditing, user]);
+  }, [editing, toggleEditing, user, mutate]);
 
   return <>{children}</>;
 };
