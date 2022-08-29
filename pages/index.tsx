@@ -4,7 +4,6 @@ import { Bio, Contact, Education, Work } from "../components/About/Bio";
 import prisma from "../prisma/db";
 import { useEditingStore } from "../stores/useEditingStore";
 
-import { useSession } from "next-auth/react";
 import { InferGetServerSidePropsType } from "next";
 import { Biography } from "@prisma/client";
 
@@ -30,7 +29,6 @@ export async function getServerSideProps() {
 const IndexPage = ({
   payload,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { status } = useSession();
   const { editing } = useEditingStore();
   const [biography, setBiography] = useState<Biography | undefined>(
     payload.biography
@@ -53,10 +51,6 @@ const IndexPage = ({
 
     refreshData().catch(console.error);
   }, [editing]);
-
-  if (status === "loading" || !biography) {
-    return <Layout></Layout>;
-  }
 
   return (
     <Layout>

@@ -3,6 +3,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { IBio } from "../../components/About/Bio";
 import prisma from "../../prisma/db";
 
+/**
+ * When Prisma Data Proxy releases more locations look into converting to
+ * Experimental Edge
+ */
+
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {
     try {
