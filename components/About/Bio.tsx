@@ -232,16 +232,10 @@ export const Contact = ({ className = "" }: Props) => {
       <p className="font-semibold mb-4">Contact</p>
       <div className="flex flex-row flex-wrap gap-x-8 gap-y-4">
         <Social
-          icon={<FaTwitter />}
-          handle="@notconal"
-          link="https://twitter.com/notconal"
-        />
-        <Social
           icon={<FaGithub />}
           handle="@scooobs"
           link="https://github.com/scooobs"
         />
-        <Social icon={<FaDiscord />} handle="conal#6229" />
       </div>
     </div>
   );
